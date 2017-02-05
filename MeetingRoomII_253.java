@@ -9,6 +9,7 @@
  * }
  */
 
+// time: O(n*logn) because of sorting
 // METHOD 1: sweep-line 1
 public class MeetingRoomII_253 {
 	private class Event implements Comparable<Event> {
