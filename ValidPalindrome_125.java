@@ -12,7 +12,7 @@ public class ValidPalindrome_125 {
         		i++;
         	while (i < j && !Character.isLetterOrDigit(s.charAt(j)))
         		j--;
-        	if (i < j) break;
+        	// if (i >= j) break;
         	if (s.charAt(i).toLowerCase() != s.charAt(j).toLowerCase()) 
         		return false;
         	i++; j--;

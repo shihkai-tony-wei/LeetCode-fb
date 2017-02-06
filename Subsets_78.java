@@ -35,6 +35,7 @@ public class Subsets_78 {
 			-- for j in 0 to n - 1
 				if i & (1 << j) is not 0, then j-th number is in the set.
     */
+                
 	public List<List<Integer>> subsets_bit(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         int n = nums.length;

@@ -3,7 +3,8 @@
 */
 
 /* Idea: pre-order traversal
-Keep null nodes in the string.
+Serialize: Keep null nodes in the string.
+Deserialize: Using a queue to decode.
 */
 
 
