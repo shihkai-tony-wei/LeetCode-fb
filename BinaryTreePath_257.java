@@ -1,5 +1,9 @@
 /*
 LC257. Binary Tree Paths
+**************************************************
+Check whether a node is a leaf:
+node.left == null && node.right == null
+**************************************************
 */
 
 /**

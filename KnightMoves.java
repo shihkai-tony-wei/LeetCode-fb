@@ -64,7 +64,7 @@ public class KnightMoves {
 
 	public static void main(String[] args) {
 		KnightMoves km = new KnightMoves();
-		int[] A = {0, 0}, B = {3, 2};
+		int[] A = {0, 0}, B = {1, 1};
 		System.out.println("Minimum number of moves = " + km.minMoves(A, B));
 	}
 }
