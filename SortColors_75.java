@@ -30,3 +30,39 @@ public class SortColors_75 {
     	a[j] = temp;
     }
 }
+
+
+
+
+// follow up K categories: 0, 1, 2, ..., k-2, k-1
+// 0 = L, {2...k-2} = M, k-1 = H
+public void sortKCategory(int[] nums, int k) {
+       //assume getCat returns 1, ...k
+        int pl = 0;
+        int pr = nums.length - 1;
+        int i = 0;
+        int min = 1, max = k;
+        while (min < max) {
+            while (i <= pr) {
+                if (getCat(nums[i]) == min) {
+                    swap(nums, pl, i);
+                    i++;
+                    pl++;
+                } else if (getCat(nums[i]) == max) {-google 1point3acres
+                    swap(nums, pr, i);
+                    pr--;
+                } else {
+                    i++;
+                }
+            }
+            i = pl;
+            min++;
+            max--;
+        }
+    }
+
+    private void swap(int[] colors, int i, int j) {
+        int temp = colors[i];
+        colors[i] = colors[j];
+        colors[j] = temp;
+    }

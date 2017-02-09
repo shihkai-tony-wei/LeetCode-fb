@@ -53,7 +53,7 @@ public class Subsets_78 {
     public static void main(String[] args) {
     	Subsets_78 ss = new Subsets_78();
     	int[] nums = {1,2,3};
-    	List<List<Integer>> ans = ss.subsets_bit(nums);
+    	List<List<Integer>> ans = ss.subsets(nums);
     	for (List<Integer> list : ans) {
     		System.out.println(list.toString());
     	}

@@ -16,7 +16,8 @@ list = [ [], [1]; [2], [1,2]]
 list = [ [], [1]; [2], [1,2]; [2,2], [1,2,2]]
 */
 
-public class SubsetII_90 {
+public class SubsetsII_90 {
+    // iterative
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         ans.add(new ArrayList<Integer>());
@@ -32,4 +33,29 @@ public class SubsetII_90 {
         }
         return ans;
     }
+
+    // backtracking
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(nums, 0, ans, new ArrayList<>());
+        return ans;
+    }
+
+    private void backtrack(int[] nums, int pos, List<List<Integer>> ans, List<Integer> sublist) {
+        ans.add(new ArrayList<>(sublist));
+        for (int i = pos; i < nums.length; ++i) {
+            if (i > pos && nums[i] == nums[i - 1]) continue;    // skip duplicates
+            // current move
+            sublist.add(nums[i]);
+
+            // recursive calls on remaining parts
+            backtrack(nums, i + 1, ans, sublist);
+
+            // undo current move
+            sublist.remove(sublist.size() - 1);
+        }
+    }
+
+
 }
