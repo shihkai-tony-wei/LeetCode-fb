@@ -64,4 +64,35 @@ public class BinaryTreePath_257 {
      	}
      	return ans;
     }
+
+
+    // Follo-up: if we see a target, print the path to it twice.
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> ans = new ArrayList<>();
+        if (root != null) helper(root, ans, "", 2, "");
+        return ans;
+    }
+
+    // use two paths to in the helper
+    // path: normal path, targetPath: stores repeated path
+    private void helper(TreeNode x, List<String> ans, String path, int target, String targetPath) {
+        
+        if (x.left == null && x.right == null) {
+            if (x.val == target) ans.add(targetPath + path + x.val);
+            else ans.add(targetPath + x.val);
+        }
+        if (x.left != null) {
+            if (x.val == target)
+                // append the previous targetPath by path and current val
+                helper(x.left, ans, path + x.val + "->", target, targetPath + path + x.val + "->");
+            else
+                helper(x.left, ans, path + x.val + "->", target, targetPath + x.val + "->");
+        }
+        if (x.right != null) {
+            if (x.val == target)
+                helper(x.right, ans, path + x.val + "->", target, targetPath + path + x.val + "->");
+            else
+                helper(x.right, ans, path + x.val + "->", target, targetPath + x.val + "->");
+        }
+    }
 }

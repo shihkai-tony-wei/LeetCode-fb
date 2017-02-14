@@ -1,5 +1,5 @@
 /*
-Given a Binary Tree, convert it to a Circular Doubly Linked List (In-Place) -- CDLL
+Given a Binary Tree, convert it to a (Circular) Doubly Linked List (In-Place) -- CDLL
 
 -The left and right pointers in nodes are to be used as leftious and right pointers respectively in converted Circular Linked List.
 -The order of nodes in List must be same as Inorder of the given Binary Tree.
@@ -22,7 +22,60 @@ class Node {	// Circular doubly linked list - CDLL
 }
 
 public class BinaryTreeToLinkedList {
+	// ******************************************************************************
+	// Method 1: in-order traversal of BST
+	private static Node curr;		// use a global variable to track current node
 
+	public static Node bstToList(Node root) {
+		Node dummy = new Node(0);
+		curr = dummy;
+		buildList(root);
+		// if circular:
+		// dummy.right.left = curr;
+		// curr.right = dummy.right;
+		
+		return dummy.right;
+	}
+
+	private static void buildList(Node x) {
+		if (x == null) return;
+
+		buildList(x.left);
+
+		// connect curr to x and update curr
+		x.left = curr;
+		curr.right = x;		
+		curr = x; 
+
+		buildList(x.right);
+	}
+
+	// Iterative version
+	public static Node bstToListIterative(Node root) {
+		if (root == null) return null;
+		Node dummy = new Node(0);
+		Node curr = dummy, x = root;
+		Deque<Node> stack = new LinkedList<>();
+		while (x != null || !stack.isEmpty()) {
+			while (x != null) {
+				stack.push(x);
+				x = x.left;
+			}
+			// now x is null
+			x = stack.pop();
+			// connect curr to x
+			curr.right = x;
+			x.left = curr;
+			curr = x;
+
+			x = x.right;
+		}
+		return dummy.right;
+	}
+
+
+	// ******************************************************************************
+	// Method 2:
 	public static Node concatenate(Node l1, Node l2) {
 		if (l1 == null) return l2;
 		if (l2 == null) return l1;
@@ -51,7 +104,7 @@ public class BinaryTreeToLinkedList {
 		return concatenate(concatenate(left, x), right);
 	}
 
-	public static void display(Node head) {
+	public static void displayCircular(Node head) {
 		Node x = head;
 		do {
 			System.out.print(x.val + " ");
@@ -59,7 +112,16 @@ public class BinaryTreeToLinkedList {
 		} while (x != head);
 	}
 
+	public static void display(Node head) {
+		Node x = head;
+		while (x != null) {
+			System.out.print(x.val + " ");
+			x = x.right;
+		}
+	}
 
+
+	// ******************************************************************************
 	// test
 	public static void main(String[] args) {
 		Node[] nodes = new Node[6];
@@ -73,7 +135,7 @@ public class BinaryTreeToLinkedList {
 				nodes[i].right = nodes[2*i + 2];
 		}
 
-		Node head = BinaryTreeToLinkedList.treeToList(nodes[0]);
+		Node head = BinaryTreeToLinkedList.bstToListIterative(nodes[0]);
 		BinaryTreeToLinkedList.display(head);
 	}
 

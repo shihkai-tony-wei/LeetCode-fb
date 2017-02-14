@@ -26,12 +26,12 @@ public class WordBreak_139 {
 
         int n = s.length();
         boolean[] dp = new boolean[n + 1];
-        dp[0] = true;
+        dp[0] = true;   // ** this must be true so all others will work!!!
         
 
         for (int i = 1; i <= n; ++i) {
         	// for each ending, check all substrings starting at index 0
-        	for (int j = 0; j < len; ++j) {
+        	for (int j = 0; j < i ++j) {
         		if (dp[j] && set.contains(s.substring(j, i))) {
         			dp[i] = true;	// found a match, break here
         			break;
