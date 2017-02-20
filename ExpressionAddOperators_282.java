@@ -41,10 +41,10 @@ public class ExpressionAddOperators_282 {
     	}
 
     	for (int i = pos; i < num.length(); i++) {
-    		if (i > pos && num.charAt(pos) == '0') return;
-    		long curr = Long.valueOf(num.substring(pos, i + 1));
+    		if (i > pos && num.charAt(pos) == '0') return;        // a non digit can't start with 0
+    		long curr = Long.valueOf(num.substring(pos, i + 1));  // try all possible number
     		int len = path.length();
-    		if (pos == 0) {
+    		if (pos == 0) {       // special case: index 0 doesn't need an preceding operator
     			helper(ans, path.append(curr), num, target, i + 1, curr, curr);
     			path.setLength(len);
     		} else {

@@ -34,7 +34,6 @@ public class BinaryTreePath_257 {
 
 // Method 2: iterative -- dfs pre-order
 public class BinaryTreePath_257 {
-	// recursive: keeping a String of path and recursively append new values to it.
     public List<String> binaryTreePaths(TreeNode root) {
      	List<String> ans = new ArrayList<>();
      	if (root == null) return ans;

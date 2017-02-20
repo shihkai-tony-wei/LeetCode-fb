@@ -13,8 +13,8 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 
 /*
 Algorithm: O(n) time + O(1) space
-(1) Find the largest k, s.t. a[k] < a[k + 1] -- the peak in array
-	- We can't make the permutation smaller by swapping with anything on the right of k.
+(1) Find the largest k, s.t. a[k] < a[k + 1] -- (k + 1) is the peak in array
+	- We can't make the permutation larger by swapping with anything on the right of k.
 	- If no such k, we know a is reversely sorted. Return its reverse.
 (2) Find the largest j, s.t. a[k] < a[j] -- a[k]'s successor
 	- After step 1, we know a[k + 1] > a[k + 2] > ... > a[n - 1].
@@ -27,7 +27,7 @@ public class NextPermutation_31 {
 	public void nextPermutation(int a[]) {
 		// step 1: starting from end, find the peak position k
 		int k = a.length - 2;
-		while (k >= 0 && a[k + 1] <= a[k]) {		// also handles duplicate values
+		while (k >= 0 && a[k] >= a[k + 1]) {		// also handles duplicate values
 			--k;
 		}
 		if (k < 0) {

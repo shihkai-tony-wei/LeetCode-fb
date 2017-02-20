@@ -29,40 +29,33 @@ public class SortColors_75 {
     	a[i] = a[j];
     	a[j] = temp;
     }
+
+
+    // follow up k categories: 0, 1, 2, ..., k-2, k-1
+    // 0 = L, {2...k-2} = M, k-1 = H
+    public void sortKCategory(int[] nums) {
+        int minCat = 0, maxCat = k - 1;
+        int i = 0;
+        int lo = 0, hi = nums.length - 1;
+        while (minCat < maxCat) {
+            while (i <= hi) {
+                if (getCategory(i) == minCat)
+                    exch(nums, lo++, i++);
+                else if (getCategory(i) == maxCat)
+                    exch(nums, hi--, i);
+                else
+                    ++i;
+            }
+            // now we are done with categories minCat, maxCat
+            // No need to consider them anymore!
+            // lo and hi are the 1st and last elements in the middle categories, just reset pointer i
+            i = lo;
+            ++minCat;
+            --maxCat;
+        }
+    }
 }
 
 
 
 
-// follow up K categories: 0, 1, 2, ..., k-2, k-1
-// 0 = L, {2...k-2} = M, k-1 = H
-public void sortKCategory(int[] nums, int k) {
-       //assume getCat returns 1, ...k
-        int pl = 0;
-        int pr = nums.length - 1;
-        int i = 0;
-        int min = 1, max = k;
-        while (min < max) {
-            while (i <= pr) {
-                if (getCat(nums[i]) == min) {
-                    swap(nums, pl, i);
-                    i++;
-                    pl++;
-                } else if (getCat(nums[i]) == max) {-google 1point3acres
-                    swap(nums, pr, i);
-                    pr--;
-                } else {
-                    i++;
-                }
-            }
-            i = pl;
-            min++;
-            max--;
-        }
-    }
-
-    private void swap(int[] colors, int i, int j) {
-        int temp = colors[i];
-        colors[i] = colors[j];
-        colors[j] = temp;
-    }

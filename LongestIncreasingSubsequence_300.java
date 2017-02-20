@@ -40,9 +40,37 @@ public class LongestIncreasingSubsequence_300 {
 		return ans;
     }
 
-    // method 2: binary search
-    // time
+    /* method 2: binary search: keep the tail of a sequence of all possible lengths
+    tail[i] = tail number is a sequence of size (i + 1)
+    For each newcomer A[i]:
+    	a. if A[i] is the smallest among all tails -- a potential starting point
+    	b. if A[i] is the largest among all tails
+    		- clone the largest, append by A[i], and add this to tail list[sz]
+    		- increment the maximum size we are considering
+    	c. if A[i] is in between
+    		- Find the smallest tail that is larger than A[i] (binary search)
+    		- clone that one, append by A[i], and replace the tail element of same size
+
+    Time: O(nlogn)
+    */
     public int lengthOfLIS(int[] nums) {
-    	
+    	if (nums == null || nums.length == 0) return 0;
+    	int n = nums.length;
+    	int[] tail = new int[n];
+		int sz = 0;
+		for (int x : nums) {
+			int lo = 0, hi = sz;
+			while (lo < hi) {
+				int mid = lo + (hi - lo) / 2;
+				if (tail[mid] < x)
+					lo = mid + 1;
+				else	// tail[mid] >= x (can handle duplicate elements)
+					hi = mid;
+			}
+			// now lo points to the largest tail which is less than x
+			tail[lo] = x;		// update the tail next to lo
+			if (lo == sz) ++sz;
+		}
+		return sz;
     }
 }

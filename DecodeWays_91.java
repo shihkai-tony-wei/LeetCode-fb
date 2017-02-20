@@ -57,7 +57,7 @@ public class DecodeWays_91 {
 		dp[0] = 1;		// This must be 1 in order to have for loop work!
 		dp[1] = s.charAt(0) == '0' ? 0 : 1;
 		for (int i = 2; i <= n; ++i) {
-			int single = Integer.valueOf(s.substring(i - 1, i));
+			int single = Integer.valueOf(s.substring(i - 1, i));	// i-th in dp is (i-1)-th in original string
 			int combo  = Integer.valueOf(s.substring(i - 2, i));
 			if (single != 0)
 				dp[i] = dp[i - 1];
